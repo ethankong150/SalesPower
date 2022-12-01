@@ -1,5 +1,5 @@
 CREATE DATABASE salespower;
-CREATE USER 'webapp'@'%' IDENTIFIED BY 'strongpassword';
+CREATE USER 'webapp'@'%' IDENTIFIED BY '2nPnDbZFN34JPlw@';
 GRANT ALL PRIVILEGES ON salespower.* TO 'webapp'@'%';
 FLUSH PRIVILEGES;
 
