@@ -5,9 +5,30 @@
 # import the create app function 
 # that lives in src/__init__.py
 from src import create_app
+from flask import Flask, jsonify
+from flask import request
+from flaskext.mysql import MySQL
+from src.__init__ import db
 
 # create the app object
 app = create_app()
+
+@app.route("/customer", methods = ['GET'])
+def post_form():
+    cur=db.get_db().cursor()
+    cur.execute('select * from customers')
+    col_headers=[x[0] for x in cur.description]
+    json_data=[]
+    the_data=cur.fetchall()
+    for row in the_data:
+        json_data.append(dict(zip(col_headers, row)))
+    return jsonify(json_data)    
+
+
+
+@app.route("/")
+def hello_world():
+    return f'<h1>Hello From the Flask-MySQL Connection Tutorial</h1>'    
 
 if __name__ == '__main__':
     # we want to run in debug mode (for hot reloading) 
