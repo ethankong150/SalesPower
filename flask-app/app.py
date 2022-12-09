@@ -7,7 +7,6 @@
 from src import create_app
 from flask import Flask, jsonify
 from flask import request
-from flaskext.mysql import MySQL
 from src.__init__ import db
 
 # create the app object
