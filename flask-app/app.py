@@ -12,10 +12,12 @@ from src.__init__ import db
 # create the app object
 app = create_app()
 
-@app.route("/customer", methods = ['GET'])
+db.init_app(app)
+
+@app.route("/test", methods = ['GET'])
 def post_form():
     cur=db.get_db().cursor()
-    cur.execute('select * from customers')
+    cur.execute('select * from products')
     col_headers=[x[0] for x in cur.description]
     json_data=[]
     the_data=cur.fetchall()

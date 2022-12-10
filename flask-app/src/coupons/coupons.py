@@ -1,15 +1,29 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify, make_response, current_app
 import json
 from src import db
 
 
-customers = Blueprint('customers', __name__)
+coupons = Blueprint('coupons', __name__)
 
-# Get all customers from the DB
-@customers.route('/customers', methods=['GET'])
+#add a coupon
+@coupons.route('/addCoup', methods=['POST'])
+def add_coup():
+    current_app.logger.info(request.form)
+    cursor = db.get_db().cursor()
+    couponID = request.form['couponID']
+    terms = request.form['terms']
+    endDate = request.form['endDate']
+    query = f'INSERT INTO coupon(couponID, terms, endDate) VALUES(\"{couponID}\", \"{terms}\", \"{endDate}\")'
+    cursor.execute(query)
+    db.get_db().commit()
+    return "Success!"
+
+
+# Get all coupons from the DB
+@coupons.route('/coupons', methods=['GET'])
 def get_customers():
     cursor = db.get_db().cursor()
-    cursor.execute('select * from customers')
+    cursor.execute('select * from coupon')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -21,10 +35,10 @@ def get_customers():
     return the_response
 
 # Get customer detail for customer with particular userID
-@customers.route('/customers/<userID>', methods=['GET'])
-def get_customer(userID):
+@coupons.route('/coupons/<coupID>', methods=['GET'])
+def get_coupons(userID):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from customers where customerID = {0}'.format(userID))
+    cursor.execute('select * from coupon where couponID = {0}'.format(userID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()

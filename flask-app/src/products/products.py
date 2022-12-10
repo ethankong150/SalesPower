@@ -5,6 +5,16 @@ from src import db
 
 products = Blueprint('products', __name__)
 
+# ways to order product information for customers
+byID = 'select * from products order by productID'
+byPrice = 'select * from products order by unitPRICE'
+byName = 'select * from products order by productName'
+byAmtInStock = 'select * from products order by quantityInStock'
+byMostPopular = '''SELECT p.productID, productName, count(*) as totalOrders
+        FROM products p JOIN orders od on p.productID = od.productID
+        GROUP BY p.productID, productName
+        ORDER BY totalOrders DESC'''
+
 # Get all the products from the database
 @products.route('/products', methods=['GET'])
 def get_products():
@@ -12,7 +22,7 @@ def get_products():
     cursor = db.get_db().cursor()
 
     # use cursor to query the database for a list of products
-    cursor.execute('select productCode, productName, productVendor from products')
+    cursor.execute('select * from products')
 
     # grab the column headers from the returned data
     column_headers = [x[0] for x in cursor.description]
@@ -31,14 +41,29 @@ def get_products():
 
     return jsonify(json_data)
 
+# Get product detail for product with particular productID
+@products.route('/products/<prodID>', methods=['GET'])
+def get_customer(prodID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from products having productID in ({0})'.format(prodID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
 # get the top 5 products from the database
-@products.route('/top5products')
+@products.route('/top5')
 def get_most_pop_products():
     cursor = db.get_db().cursor()
     query = '''
-        SELECT p.productCode, productName, sum(quantityOrdered) as totalOrders
-        FROM products p JOIN orderdetails od on p.productCode = od.productCode
-        GROUP BY p.productCode, productName
+        SELECT p.productID, productName, count(*) as totalOrders
+        FROM products p JOIN orders od on p.productID = od.productID
+        GROUP BY p.productID, productName
         ORDER BY totalOrders DESC
         LIMIT 5;
     '''
