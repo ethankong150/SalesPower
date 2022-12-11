@@ -29,11 +29,15 @@ def create_app():
     from src.customers.customers import customers
     from src.products.products  import products
     from src.coupons.coupons import coupons
+    from src.brands.brands import brands
+    from src.stores.stores import stores
 
     # Register the routes that we just imported so they can be properly handled
     app.register_blueprint(views,       url_prefix='/views')
     app.register_blueprint(customers,   url_prefix='/cust')
     app.register_blueprint(products,    url_prefix='/prod')
     app.register_blueprint(coupons,     url_prefix='/coup')
+    app.register_blueprint(brands,      url_prefix='/brand')
+    app.register_blueprint(stores,      url_prefix='/store')
 
     return app
