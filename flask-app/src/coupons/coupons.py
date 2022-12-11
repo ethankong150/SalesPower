@@ -18,6 +18,17 @@ def add_coup():
     db.get_db().commit()
     return "Success!"
 
+#remove a coupon
+@coupons.route('/removeCoup', methods=['POST'])
+def remove_coup():
+    current_app.logger.info(request.form)
+    cursor = db.get_db().cursor()
+    couponID = request.form['couponID']
+    query = f'DELETE FROM coupon WHERE couponID = \'{couponID}\''
+    cursor.execute(query)
+    db.get_db().commit()
+    return "Success!"
+
 
 # Get all coupons from the DB
 @coupons.route('/coupons', methods=['GET'])
