@@ -20,10 +20,25 @@ def add_coup():
 
 
 # Get all coupons from the DB
-@coupons.route('/coupons', methods=['GET'])
-def get_customers():
+@coupons.route('/coupCust', methods=['GET'])
+def get_cust_coup():
     cursor = db.get_db().cursor()
-    cursor.execute('select * from coupon')
+    cursor.execute('select terms as \'Terms:\', endDate as \'End Date:\' from coupon')
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+    # Get all coupons from the DB
+@coupons.route('/coupRetail', methods=['GET'])
+def retail_coup():
+    cursor = db.get_db().cursor()
+    cursor.execute('select couponID as \'Coupon ID:\', terms as \'Terms:\', endDate as \'End Date:\' from coupon')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()

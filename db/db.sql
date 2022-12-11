@@ -46,16 +46,17 @@ CREATE TABLE customers (
     city text NOT NULL,
     street_address text NOT NULL,
     f_name text NOT NULL,
-    l_name text NOT NULL
+    l_name text NOT NULL,
+    pass text NOT NULL
 );
 
 INSERT INTO customers
-VALUES (1, 'lebronjames@gmail.com', 2362362360, 12345, 'CA', 'Los Angeles', '17 Crypto Arena', 'LeBron', 'James'),
-       (2, 'anthonydavis@gmail.com', 2332332330, 12345, 'CA', 'Los Angeles', '17 Crypto Arena', 'Anthony', 'Davis'),
-       (3, 'russellwestbrick@gmail.com', 0000000000, 12345, 'CA', 'Los Angeles', '17 Crypto Arena', 'Russell', 'Westbrook'),
-       (4, 'rjbarrett@gmail.com', 5959595900, 67890, 'NY', 'New York', '2 Garden Arena', 'RJ', 'Barrett'),
-       (5, 'juliusrandle@gmail.com', 3030303030, 67890, 'NY', 'New York', '2 Garden Arena', 'Julius', 'Randle'),
-       (6, 'camreddish@gmail.com', 2102102100, 67890, 'NY', 'New York', '2 Garden Arena', 'Cam', 'Reddish');
+VALUES (1, 'lebronjames@gmail.com', 2362362360, 12345, 'CA', 'Los Angeles', '17 Crypto Arena', 'LeBron', 'James', 'lakers'),
+       (2, 'anthonydavis@gmail.com', 2332332330, 12345, 'CA', 'Los Angeles', '17 Crypto Arena', 'Anthony', 'Davis', 'center'),
+       (3, 'russellwestbrick@gmail.com', 0000000000, 12345, 'CA', 'Los Angeles', '17 Crypto Arena', 'Russell', 'Westbrook', 'badplayer'),
+       (4, 'rjbarrett@gmail.com', 5959595900, 67890, 'NY', 'New York', '2 Garden Arena', 'RJ', 'Barrett', 'duke'),
+       (5, 'juliusrandle@gmail.com', 3030303030, 67890, 'NY', 'New York', '2 Garden Arena', 'Julius', 'Randle', 'knicks'),
+       (6, 'camreddish@gmail.com', 2102102100, 67890, 'NY', 'New York', '2 Garden Arena', 'Cam', 'Reddish', 'who');
 
 CREATE TABLE products (
     productID integer PRIMARY KEY,
@@ -105,12 +106,13 @@ CREATE TABLE brandemployee (
     postal_code CHAR(5) NOT NULL,
     state_abbr CHAR(2) NOT NULL,
     city text NOT NULL,
-    street_address text NOT NULL
+    street_address text NOT NULL,
+    pass text NOT NULL
 );
 
 INSERT INTO brandemployee
-VALUES (9999, 'john@gmail.com', 'administration', 'john', 'cena', 49494, 'OH', 'Canton', '23 King Road'),
-       (9998, 'jeff@yahoo.com', 'retail relationships', 'jeff', 'van gundy', 39393, 'NV', 'Las Vegas', '6 Poker Lane');
+VALUES (9999, 'john@gmail.com', 'administration', 'john', 'cena', 49494, 'OH', 'Canton', '23 King Road', 'password'),
+       (9998, 'jeff@yahoo.com', 'retail relationships', 'jeff', 'van gundy', 39393, 'NV', 'Las Vegas', '6 Poker Lane', 'secret');
 
 CREATE TABLE brandemploys (
     companyName VARCHAR(40) NOT NULL,
@@ -130,12 +132,13 @@ CREATE TABLE outletemployee (
     postal_code CHAR(5) NOT NULL,
     state_abbr CHAR(2) NOT NULL,
     city text NOT NULL,
-    street_address text NOT NULL
+    street_address text NOT NULL,
+    pass text NOT NULL
 );
 
 INSERT INTO outletemployee
-VALUES (1000, 'jane@gmail.com', 'administration', 'jane', 'doe', 49494, 'NJ', 'Plainsboro', '9 Young Bl'),
-       (1001, 'jodie@yahoo.com', 'retail relationships', 'jodie', 'brown', 39393, 'WY', 'Jackson Hole', '8 Hohman Court');
+VALUES (1000, 'jane@gmail.com', 'administration', 'jane', 'doe', 49494, 'NJ', 'Plainsboro', '9 Young Bl', 'admin'),
+       (1001, 'jodie@yahoo.com', 'retail relationships', 'jodie', 'brown', 39393, 'WY', 'Jackson Hole', '8 Hohman Court', '123456789');
 
 CREATE TABLE retailemploys (
     companyName VARCHAR(40) NOT NULL,
