@@ -16,3 +16,7 @@ Having the types of users be sent to different login pages allows the various lo
 
 #### Customer Page:
 After the customer's login informatino is confirmed, they are sent to the customer page, where they'll be to able to see a table of active coupons and the terms/details of each coupon. We used another GET request to view all of the coupons currently in the database.
+
+#### Brand Page:
+
+#### Retail Page:
