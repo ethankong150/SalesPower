@@ -152,11 +152,11 @@ VALUES (1, 1000), (2, 1001);
 CREATE TABLE coupon (
     couponID integer PRIMARY KEY,
     terms text NOT NULL,
-    endDate CHAR(8) NOT NULL
+    endDate text NOT NULL
 );
 
 INSERT INTO coupon
-VALUES (1, '75% off', '1/1/23'), (2, '50% off', '1/1/23');
+VALUES (1, '75% off', '01/01/2023'), (2, '50% off', '01/01/2023');
 
 CREATE TABLE discount (
     couponID integer NOT NULL,

@@ -19,7 +19,7 @@ def add_coup():
     return "Success!"
 
 #remove a coupon
-@coupons.route('/removeCoup', methods=['POST'])
+@coupons.route('/remove', methods=['DELETE'])
 def remove_coup():
     current_app.logger.info(request.form)
     cursor = db.get_db().cursor()
@@ -50,21 +50,6 @@ def get_cust_coup():
 def retail_coup():
     cursor = db.get_db().cursor()
     cursor.execute('select couponID as \'Coupon ID:\', terms as \'Terms:\', endDate as \'End Date:\' from coupon')
-    row_headers = [x[0] for x in cursor.description]
-    json_data = []
-    theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(row_headers, row)))
-    the_response = make_response(jsonify(json_data))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
-
-# Get customer detail for customer with particular userID
-@coupons.route('/coupons/<coupID>', methods=['GET'])
-def get_coupons(userID):
-    cursor = db.get_db().cursor()
-    cursor.execute('select * from coupon where couponID = {0}'.format(userID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
