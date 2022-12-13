@@ -12,18 +12,7 @@ from src.__init__ import db
 # create the app object
 app = create_app()
 
-db.init_app(app)
-
-@app.route("/test", methods = ['GET'])
-def post_form():
-    cur=db.get_db().cursor()
-    cur.execute('select * from products')
-    col_headers=[x[0] for x in cur.description]
-    json_data=[]
-    the_data=cur.fetchall()
-    for row in the_data:
-        json_data.append(dict(zip(col_headers, row)))
-    return jsonify(json_data)    
+db.init_app(app) 
 
 if __name__ == '__main__':
     # we want to run in debug mode (for hot reloading) 
